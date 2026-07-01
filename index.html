@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Misión Azul · Escape Room Parque Marino Híbrido</title>
+<title>Parque offshore MARES · Escape Room Energías Renovables Marinas</title>
 <style>
 :root{
   --bg:#f4f9ff;
@@ -58,7 +58,6 @@ button,input{font-family:inherit}
 .progressbar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:999px;transition:width .45s ease}
 .panel{background:rgba(255,255,255,.94);border:1px solid var(--line2);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
 .intro{margin-top:18px;display:grid;grid-template-columns:1fr;gap:18px}
-@media(min-width:900px){.intro{grid-template-columns:1.15fr .85fr}}
 .kicker{display:inline-flex;gap:7px;align-items:center;color:var(--blue);background:#edf8ff;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
 h2{margin:13px 0 10px;color:var(--deep);font-size:1.55rem;line-height:1.15}
 p{line-height:1.65;color:var(--muted)}
@@ -85,11 +84,10 @@ p{line-height:1.65;color:var(--muted)}
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="brand"><div class="logo">🌊</div><div><h1>Misión Azul · Parque Marino Híbrido</h1><p>Escape room divulgativo · eólica marina + solar flotante + mareomotriz</p></div></div>
+    <div class="brand"><div class="logo">🌊</div><div><h1>Parque marino MARES</h1><p>Escape room divulgativo</p></div></div>
     <div class="stats">
-      <div class="stat"><span class="lbl">Misión</span><span class="val" id="statMission">0 / 10</span></div>
-      <div class="stat"><span class="lbl">Eficiencia</span><span class="val" id="statEff">100%</span></div>
-      <div class="stat"><span class="lbl">Energía</span><span class="val warn" id="statEnergy">100%</span></div>
+      <div class="stat"><span class="lbl">Alarmas activas</span><span class="val" id="statMission">10</span></div>
+      <div class="stat"><span class="lbl">Energía recuperada</span><span class="val warn" id="statEnergy">0%</span></div>
       <div class="stat"><span class="lbl">Insignias</span><span class="val" id="statBadges">0</span></div>
     </div>
     <div class="progressbar"><span id="progressFill"></span></div>
@@ -97,17 +95,23 @@ p{line-height:1.65;color:var(--muted)}
 
   <section class="intro" id="intro">
     <div class="panel">
-      <span class="kicker">Centro de control familiar</span>
-      <h2>Apagad las alarmas de un parque marino que produce energía limpia.</h2>
-      <p>El parque combina tres fuentes renovables: el viento del mar, la luz del sol sobre plataformas flotantes y las corrientes de marea. Cada alarma incluye un pequeño manual interactivo: leedlo, observad la infografía y elegid la respuesta correcta.</p>
+      <span class="kicker">Centro de control</span>
+      <h2>Apaga todas las alarmas del parque.</h2>
+      <p>El parque combina tres fuentes de energía renovable: el viento del mar, la luz del sol sobre plataformas flotantes y las corrientes de marea.</p>
       <div class="mini-cards"><div class="mini"><span>💨</span>Eólica marina</div><div class="mini"><span>☀️</span>Solar flotante</div><div class="mini"><span>🌊</span>Mareomotriz</div></div>
-      <div class="actions"><button class="btn" id="startBtn">Iniciar misión</button><button class="btn ghost" id="demoBtn">Ver instrucciones</button></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><h3>Cómo se juega</h3><span class="badge">10 alarmas</span></div>
-      <p><strong>1.</strong> Localizad el punto rojo en el mapa.<br><strong>2.</strong> Pulsad “Consultar manual azul”.<br><strong>3.</strong> Usad la infografía para responder.<br><strong>4.</strong> Cada fallo baja la energía del parque un 5%.</p>
+      <p>Conviértete en operador/a del centro de control y reactiva la energía del océano apagando las alarmas del parque marino híbrido.</p>
+      <div class="panel-title"><h3>Cómo se juega</h3></div>
+      <p><strong>1.</strong> Al comenzar la misión, todas las alarmas del parque aparecerán activas en color rojo. Deberéis resolverlas siguiendo el orden establecido por el centro de control.<br><strong>2.</strong> Para cada alarma, pulsad «Consultar Manual Azul» y leed la explicación junto con la infografía antes de responder.<br><strong>3.</strong> Cada pregunta solo puede responderse una vez, así que pensad bien vuestra respuesta antes de elegir una opción.
+      <br><strong>4.</strong> Cada respuesta correcta apagará una de las alarmas del mapa y aumentará el porcentaje de energía recuperada del parque.</p>
       <div class="badges"><span class="award locked">💨 Experto/a eólica</span><span class="award locked">☀️ Guardián solar</span><span class="award locked">🌊 Maestro/a de mareas</span><span class="award locked">🛠️ Operador/a SCADA</span></div>
+      <p>Al completar correctamente todas las preguntas de una misma temática (por ejemplo, energía eólica o solar flotante), conseguiréis una insignia. ¿Seréis capaces de obtenerlas todas?</p>
+      <div class="actions"><button class="btn" id="startBtn">Iniciar misión</button><!--<button class="btn ghost" id="demoBtn">Ver instrucciones</button>--></div>
     </div>
+    <!--<div class="panel">
+      <div class="panel-title"><h3>Cómo se juega</h3><span class="badge">10 alarmas</span></div>
+      <p><strong>1.</strong> Al iniciar, todas las alarmas aparecerán activas en rojo.<br><strong>2.</strong> Pulsad “Consultar manual azul”.<br><strong>3.</strong> Usad la infografía para responder.<br><strong>4.</strong> Cada respuesta correcta apaga una alarma del mapa.</p>
+      <div class="badges"><span class="award locked">💨 Experto/a eólica</span><span class="award locked">☀️ Guardián solar</span><span class="award locked">🌊 Maestro/a de mareas</span><span class="award locked">🛠️ Operador/a SCADA</span></div>
+    </div>-->
   </section>
 
   <section class="game hidden" id="game">
@@ -146,25 +150,35 @@ p{line-height:1.65;color:var(--muted)}
     <div class="actions"><button class="btn" id="restartBtn">Reiniciar misión</button></div>
   </section>
 
-  <footer>Misión Azul · Simulador educativo de energías renovables marinas</footer>
+  <footer>MARES · Escape room virtual y divulgativo de energías renovables marinas</footer>
 </div>
 
 <script>
 (function(){
 'use strict';
 const incidents=[
-{node:'PUERTO',tag:'Logística marina',badge:'🛠️ Operador/a SCADA',title:'Alarma 01 · Puerto base bloqueado',scenario:'Un buque con piezas gigantes del parque está esperando para entrar al puerto. Antes de descargar, el equipo debe comprobar si el puerto puede recibirlo con seguridad.',question:'¿Qué dos cosas son más importantes para decidir si un puerto sirve como base del parque?',options:['Que tenga playa cerca y restaurantes','Calado suficiente y muelle resistente','Que esté cerca de una ciudad grande','Que el agua sea muy transparente'],correct:1,learnTitle:'Los puertos son la puerta de entrada del parque',learn:'Los aerogeneradores, plataformas solares y turbinas de marea son piezas enormes. Para moverlas, el puerto necesita suficiente profundidad para los barcos y muelles capaces de soportar mucho peso.',fact:'Dato azul: algunas palas de aerogenerador pueden medir más que un campo de fútbol.',svg:'port'},
-{node:'SOLAR1',tag:'Solar flotante',badge:'☀️ Guardián solar',title:'Alarma 02 · Paneles solares con poca energía',scenario:'La plataforma solar flotante FPV-01 está produciendo menos energía de lo normal, aunque hace sol.',question:'¿Qué puede estar reduciendo poco a poco la producción?',options:['Sal, algas y suciedad sobre los paneles','Demasiado silencio en el mar','Que la Luna esté lejos','Que el agua esté azul'],correct:0,learnTitle:'La solar flotante también necesita limpieza',learn:'Los paneles solares convierten la luz en electricidad. En el mar, la sal, las algas y otros organismos pueden cubrir la superficie y dejar pasar menos luz.',fact:'Dato azul: limpiar los paneles puede recuperar parte de la energía perdida.',svg:'solar'},
-{node:'EOL1',tag:'Eólica marina',badge:'💨 Experto/a eólica',title:'Alarma 03 · Instalación de aerogenerador',scenario:'Hay que colocar la torre, la góndola y las palas en el mar. El equipo necesita una embarcación muy estable.',question:'¿Qué barco ayuda a instalar aerogeneradores elevándose sobre el agua?',options:['Un crucero turístico','Un WTIV o buque jack-up','Una canoa','Un submarino de paseo'],correct:1,learnTitle:'Barcos que se levantan sobre el mar',learn:'Los buques WTIV tienen patas que bajan hasta el fondo marino. Después elevan el casco para trabajar sin moverse tanto con las olas.',fact:'Dato azul: trabajar estable es clave para levantar piezas de cientos de toneladas.',svg:'wtiv'},
-{node:'CTRL',tag:'Centro de control',badge:'🛠️ Operador/a SCADA',title:'Alarma 04 · Mal tiempo en la ruta',scenario:'La operación se retrasa porque hay demasiado oleaje y viento. El centro de control debe decidir cuándo salir.',question:'¿Qué datos ayudan a elegir una ventana segura de trabajo?',options:['Oleaje, viento y marea','El color del barco','El número de gaviotas','La música de la tripulación'],correct:0,learnTitle:'Ventanas operativas',learn:'Una ventana operativa es un periodo en el que el mar permite trabajar con seguridad. Para calcularla se miran olas, viento, corrientes y mareas.',fact:'Dato azul: esperar al buen tiempo puede parecer lento, pero evita accidentes.',svg:'weather'},
-{node:'EOL2',tag:'Eólica marina',badge:'💨 Experto/a eólica',title:'Alarma 05 · Turbina con viento pero sin electricidad',scenario:'El sensor indica viento suficiente, pero el aerogenerador WTG-07 produce 0 kW.',question:'Si hay viento pero no hay electricidad, ¿dónde estará probablemente el problema?',options:['En la luz del sol','En una avería interna o conexión eléctrica','En que la marea está baja','En que el mapa es pequeño'],correct:1,learnTitle:'Del viento a la electricidad',learn:'El viento mueve las palas. Ese giro pasa al generador, que produce electricidad. Si hay viento pero no hay producción, puede fallar el generador, la conexión o un sistema interno.',fact:'Dato azul: los sensores ayudan a saber si falla el recurso natural o la máquina.',svg:'wind'},
-{node:'MAREA',tag:'Mareomotriz',badge:'🌊 Maestro/a de mareas',title:'Alarma 06 · Mantenimiento en turbina de marea',scenario:'Hay que revisar una turbina instalada en una zona con corrientes fuertes.',question:'¿Cuándo es más seguro hacer el mantenimiento?',options:['Cuando la corriente es máxima','En corriente mínima o cambio de marea','Durante una tormenta','Siempre de noche'],correct:1,learnTitle:'La fuerza de las mareas',learn:'La energía mareomotriz aprovecha el movimiento del agua. Para producir interesa que la corriente sea fuerte, pero para revisar equipos conviene que el agua se mueva poco.',fact:'Dato azul: el mejor momento para producir no siempre es el mejor momento para reparar.',svg:'tide'},
-{node:'ANCLA',tag:'Anclajes marinos',badge:'🛠️ Operador/a SCADA',title:'Alarma 07 · Plataforma flotante desplazada',scenario:'Una plataforma solar se ha movido ligeramente de su zona segura tras varios días de temporal.',question:'¿Qué sistema ayuda a mantener una plataforma flotante en su posición?',options:['Anclajes y líneas de fondeo','Sombrillas gigantes','Globos de helio','Redes de pesca decorativas'],correct:0,learnTitle:'Fondeos: los cinturones de seguridad del mar',learn:'Las plataformas flotantes no están pegadas al fondo. Se mantienen en posición mediante anclajes y líneas de fondeo que las sujetan al lecho marino.',fact:'Dato azul: un buen fondeo debe resistir olas, viento y corrientes.',svg:'anchor'},
-{node:'SOLAR1',tag:'Hibridación energética',badge:'☀️ Guardián solar',title:'Alarma 08 · Noche sin producción solar',scenario:'El sol se ha puesto y la zona solar deja de producir, pero el parque no se apaga.',question:'¿Por qué un parque híbrido puede seguir aportando energía?',options:['Porque combina varias fuentes, como viento y marea','Porque los paneles funcionan con estrellas','Porque la pintura azul produce electricidad','Porque los cables guardan luz'],correct:0,learnTitle:'Por qué combinar tecnologías',learn:'Un parque híbrido usa varias fuentes renovables. Si una produce menos, otra puede seguir funcionando. Por eso combinar solar, eólica y mareomotriz puede hacer el sistema más estable.',fact:'Dato azul: diversificar es no depender de una sola fuente.',svg:'hybrid'},
-{node:'CTRL',tag:'Biodiversidad marina',badge:'🌊 Maestro/a de mareas',title:'Alarma 09 · Aviso de fauna marina',scenario:'El sistema detecta presencia de fauna cerca de una zona de trabajo. Hay que actuar sin dañar el ecosistema.',question:'¿Qué decisión es más responsable?',options:['Parar o reducir la operación y revisar la zona','Ignorar el aviso','Aumentar la velocidad de los barcos','Apagar todos los sensores'],correct:0,learnTitle:'Energía limpia también significa cuidar el entorno',learn:'Los parques marinos deben producir energía reduciendo impactos. Por eso se usan sensores, rutas seguras, estudios ambientales y paradas temporales si aparece fauna sensible.',fact:'Dato azul: una buena ingeniería también protege el océano.',svg:'fauna'},
-{node:'RECICLA',tag:'Fin de vida',badge:'♻️ Guardián del ciclo',title:'Alarma 10 · Fin de vida del parque',scenario:'Después de muchos años, toca desmontar parte del parque y recuperar materiales.',question:'¿Qué componente suele ser más difícil de reciclar?',options:['El acero de una estructura','El cobre de los cables','Las palas de material compuesto','Los tornillos metálicos'],correct:2,learnTitle:'El reto de reciclar las palas',learn:'Muchos metales, como acero y cobre, se reciclan muy bien. Las palas de aerogenerador están hechas de materiales compuestos, más ligeros pero más difíciles de separar y reciclar.',fact:'Dato azul: diseñar pensando en el reciclaje ayuda desde el primer día.',svg:'recycle'}
+{node:'PUERTO',tag:'Logística marina',badge:'🛠️ Operador/a SCADA',category:'scada',title:'Alarma 01 · Puerto base bloqueado',scenario:'Un buque con piezas gigantes del parque está esperando para entrar al puerto. Antes de descargar, el equipo debe comprobar si el puerto puede recibirlo con seguridad.',question:'¿Qué dos cosas son más importantes para decidir si un puerto sirve como base del parque?',options:['Que tenga playa cerca y restaurantes','Calado suficiente y muelle resistente','Que esté cerca de una ciudad grande','Que el agua sea muy transparente'],correct:1,learnTitle:'Los puertos son la puerta de entrada del parque',learn:'Los aerogeneradores, plataformas solares y turbinas de marea son piezas enormes. Para moverlas, el puerto necesita suficiente profundidad para los barcos y muelles capaces de soportar mucho peso.',fact:'Dato azul: algunas palas de aerogenerador pueden medir más que un campo de fútbol.',svg:'port'},
+{node:'SOLAR1',tag:'Solar flotante',badge:'☀️ Guardián solar',category:'solar',title:'Alarma 02 · Paneles solares con poca energía',scenario:'La plataforma solar flotante FPV-01 está produciendo menos energía de lo normal, aunque hace sol.',question:'¿Qué puede estar reduciendo poco a poco la producción?',options:['Sal, algas y suciedad sobre los paneles','Demasiado silencio en el mar','Que la Luna esté lejos','Que el agua esté azul'],correct:0,learnTitle:'La solar flotante también necesita limpieza',learn:'Los paneles solares convierten la luz en electricidad. En el mar, la sal, las algas y otros organismos pueden cubrir la superficie y dejar pasar menos luz.',fact:'Dato azul: limpiar los paneles puede recuperar parte de la energía perdida.',svg:'solar'},
+{node:'EOL1',tag:'Eólica marina',badge:'💨 Experto/a eólica',category:'eolica',title:'Alarma 03 · Instalación de aerogenerador',scenario:'Hay que colocar la torre, la góndola y las palas en el mar. El equipo necesita una embarcación muy estable.',question:'¿Qué barco ayuda a instalar aerogeneradores elevándose sobre el agua?',options:['Un crucero turístico','Un WTIV o buque jack-up','Una canoa','Un submarino de paseo'],correct:1,learnTitle:'Barcos que se levantan sobre el mar',learn:'Los buques WTIV tienen patas que bajan hasta el fondo marino. Después elevan el casco para trabajar sin moverse tanto con las olas.',fact:'Dato azul: trabajar estable es clave para levantar piezas de cientos de toneladas.',svg:'wtiv'},
+{node:'CTRL',tag:'Centro de control',badge:'🛠️ Operador/a SCADA',category:'scada',title:'Alarma 04 · Mal tiempo en la ruta',scenario:'La operación se retrasa porque hay demasiado oleaje y viento. El centro de control debe decidir cuándo salir.',question:'¿Qué datos ayudan a elegir una ventana segura de trabajo?',options:['Oleaje, viento y marea','El color del barco','El número de gaviotas','La música de la tripulación'],correct:0,learnTitle:'Ventanas operativas',learn:'Una ventana operativa es un periodo en el que el mar permite trabajar con seguridad. Para calcularla se miran olas, viento, corrientes y mareas.',fact:'Dato azul: esperar al buen tiempo puede parecer lento, pero evita accidentes.',svg:'weather'},
+{node:'EOL2',tag:'Eólica marina',badge:'💨 Experto/a eólica',category:'eolica',title:'Alarma 05 · Turbina con viento pero sin electricidad',scenario:'El sensor indica viento suficiente, pero el aerogenerador WTG-07 produce 0 kW.',question:'Si hay viento pero no hay electricidad, ¿dónde estará probablemente el problema?',options:['En la luz del sol','En una avería interna o conexión eléctrica','En que la marea está baja','En que el mapa es pequeño'],correct:1,learnTitle:'Del viento a la electricidad',learn:'El viento mueve las palas. Ese giro pasa al generador, que produce electricidad. Si hay viento pero no hay producción, puede fallar el generador, la conexión o un sistema interno.',fact:'Dato azul: los sensores ayudan a saber si falla el recurso natural o la máquina.',svg:'wind'},
+{node:'MAREA',tag:'Mareomotriz',badge:'🌊 Maestro/a de mareas',category:'marea',title:'Alarma 06 · Mantenimiento en turbina de marea',scenario:'Hay que revisar una turbina instalada en una zona con corrientes fuertes.',question:'¿Cuándo es más seguro hacer el mantenimiento?',options:['Cuando la corriente es máxima','En corriente mínima o cambio de marea','Durante una tormenta','Siempre de noche'],correct:1,learnTitle:'La fuerza de las mareas',learn:'La energía mareomotriz aprovecha el movimiento del agua. Para producir interesa que la corriente sea fuerte, pero para revisar equipos conviene que el agua se mueva poco.',fact:'Dato azul: el mejor momento para producir no siempre es el mejor momento para reparar.',svg:'tide'},
+{node:'ANCLA',tag:'Anclajes marinos',badge:'🛠️ Operador/a SCADA',category:'scada',title:'Alarma 07 · Plataforma flotante desplazada',scenario:'Una plataforma solar se ha movido ligeramente de su zona segura tras varios días de temporal.',question:'¿Qué sistema ayuda a mantener una plataforma flotante en su posición?',options:['Anclajes y líneas de fondeo','Sombrillas gigantes','Globos de helio','Redes de pesca decorativas'],correct:0,learnTitle:'Fondeos: los cinturones de seguridad del mar',learn:'Las plataformas flotantes no están pegadas al fondo. Se mantienen en posición mediante anclajes y líneas de fondeo que las sujetan al lecho marino.',fact:'Dato azul: un buen fondeo debe resistir olas, viento y corrientes.',svg:'anchor'},
+{node:'SOLAR1',tag:'Hibridación energética',badge:'☀️ Guardián solar',category:'solar',title:'Alarma 08 · Noche sin producción solar',scenario:'El sol se ha puesto y la zona solar deja de producir, pero el parque no se apaga.',question:'¿Por qué un parque híbrido puede seguir aportando energía?',options:['Porque combina varias fuentes, como viento y marea','Porque los paneles funcionan con estrellas','Porque la pintura azul produce electricidad','Porque los cables guardan luz'],correct:0,learnTitle:'Por qué combinar tecnologías',learn:'Un parque híbrido usa varias fuentes renovables. Si una produce menos, otra puede seguir funcionando. Por eso combinar solar, eólica y mareomotriz puede hacer el sistema más estable.',fact:'Dato azul: diversificar es no depender de una sola fuente.',svg:'hybrid'},
+{node:'CTRL',tag:'Biodiversidad marina',badge:'🌊 Maestro/a de mareas',category:'marea',title:'Alarma 09 · Aviso de fauna marina',scenario:'El sistema detecta presencia de fauna cerca de una zona de trabajo. Hay que actuar sin dañar el ecosistema.',question:'¿Qué decisión es más responsable?',options:['Parar o reducir la operación y revisar la zona','Ignorar el aviso','Aumentar la velocidad de los barcos','Apagar todos los sensores'],correct:0,learnTitle:'Energía limpia también significa cuidar el entorno',learn:'Los parques marinos deben producir energía reduciendo impactos. Por eso se usan sensores, rutas seguras, estudios ambientales y paradas temporales si aparece fauna sensible.',fact:'Dato azul: una buena ingeniería también protege el océano.',svg:'fauna'},
+{node:'RECICLA',tag:'Fin de vida',badge:'♻️ Guardián del ciclo',category:'circular',title:'Alarma 10 · Fin de vida del parque',scenario:'Después de muchos años, toca desmontar parte del parque y recuperar materiales.',question:'¿Qué componente suele ser más difícil de reciclar?',options:['El acero de una estructura','El cobre de los cables','Las palas de material compuesto','Los tornillos metálicos'],correct:2,learnTitle:'El reto de reciclar las palas',learn:'Muchos metales, como acero y cobre, se reciclan muy bien. Las palas de aerogenerador están hechas de materiales compuestos, más ligeros pero más difíciles de separar y reciclar.',fact:'Dato azul: diseñar pensando en el reciclaje ayuda desde el primer día.',svg:'recycle'}
 ];
-let current=0, wrong=0, firstTry=0, energy=100; const earned=new Set();
+const categoryState={
+  scada:{name:'Centro de control y logística',total:3,correct:0,badge:'🛠️ Operador/a SCADA'},
+  solar:{name:'Solar flotante e hibridación',total:2,correct:0,badge:'☀️ Guardián/a solar'},
+  eolica:{name:'Eólica marina',total:2,correct:0,badge:'💨 Experto/a eólica'},
+  marea:{name:'Mareas y océano',total:2,correct:0,badge:'🌊 Maestro/a de mareas'},
+  circular:{name:'Economía circular',total:1,correct:0,badge:'♻️ Guardián/a del ciclo'}
+};
+let current=0, energy=0;
+const earned=new Set();
+const solvedIncidents=new Set();
+const answeredIncidents=new Set();
 const $=id=>document.getElementById(id);
 function svg(type){
 const base={
@@ -179,15 +193,94 @@ hybrid:`<svg viewBox="0 0 320 170"><text x="45" y="76" font-size="36">☀️</te
 fauna:`<svg viewBox="0 0 320 170"><path class="wave" d="M20 124 q20 12 40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#2aa6df" stroke-width="5"/><path d="M118 70 q42 -30 86 0 q-44 34 -86 0z" fill="#eaf7ff" stroke="#0b73b7" stroke-width="3"/><circle cx="190" cy="67" r="4" fill="#0b73b7"/><text x="64" y="35" fill="#07456f" font-size="15" font-weight="800">sensores protegen fauna</text></svg>`,
 recycle:`<svg viewBox="0 0 320 170"><text x="44" y="90" font-size="42">♻️</text><path d="M140 96 h105" stroke="#0b73b7" stroke-width="5" stroke-linecap="round"/><path d="M210 96 l-20 -34 l58 34 l-58 34z" fill="#eaf7ff" stroke="#0b73b7" stroke-width="3"/><text x="52" y="145" fill="#07456f" font-size="15" font-weight="800">palas = material compuesto</text></svg>`
 }; return base[type]||base.hybrid;}
-function render(){if(current>=incidents.length)return finish(); const inc=incidents[current]; wrong=0; document.querySelectorAll('.node').forEach(n=>n.classList.remove('active')); $('node-'+inc.node).classList.add('active'); $('mapBadge').textContent=inc.tag; $('incidentPanel').innerHTML=`<div class="incident-head"><span class="phase">${inc.tag}</span><h2>${inc.title}</h2><p class="scenario">${inc.scenario}</p></div><button class="learn-toggle" id="learnBtn"><span>📘 Consultar manual azul</span><span>+</span></button><div class="learn-card" id="learnCard"><div class="learn-grid"><div><h4>${inc.learnTitle}</h4><p>${inc.learn}</p><div class="fact">${inc.fact}</div></div><div class="info-svg">${svg(inc.svg)}</div></div></div><h3 style="margin:10px 0 0;color:var(--deep);font-size:.95rem">${inc.question}</h3><div class="options" id="options"></div><div id="feedback" class="feedback"></div><div class="actions"><button class="btn soft" id="hintBtn">Pista</button></div><div id="hint" class="hint">La respuesta está en el manual azul y en la infografía.</div>`;
+function allAlarmNodes(){return [...new Set(incidents.map(i=>i.node))];}
+function remainingForNode(node){return incidents.some((inc,idx)=>inc.node===node && !solvedIncidents.has(idx));}
+function activateAllAlarms(){
+  document.querySelectorAll('.node').forEach(n=>n.classList.remove('active','done'));
+  allAlarmNodes().forEach(node=>{
+    const el=$('node-'+node);
+    if(!el) return;
+    if(remainingForNode(node)) el.classList.add('active');
+    else el.classList.add('done');
+  });
+}
+function refreshNode(node){
+  const el=$('node-'+node);
+  if(!el) return;
+  el.classList.remove('active','done');
+  if(remainingForNode(node)) el.classList.add('active');
+  else el.classList.add('done');
+}
+function nextUnansweredIndex(){
+  return incidents.findIndex((_,idx)=>!answeredIncidents.has(idx));
+}
+function render(){if(current>=incidents.length)return finish(); const inc=incidents[current]; activateAllAlarms(); $('mapBadge').textContent=inc.tag; $('incidentPanel').innerHTML=`<div class="incident-head"><span class="phase">${inc.tag}</span><h2>${inc.title}</h2><p class="scenario">${inc.scenario}</p></div><button class="learn-toggle" id="learnBtn"><span>📘 Consultar manual azul</span><span>+</span></button><div class="learn-card" id="learnCard"><div class="learn-grid"><div><h4>${inc.learnTitle}</h4><p>${inc.learn}</p><div class="fact">${inc.fact}</div></div><div class="info-svg">${svg(inc.svg)}</div></div></div><h3 style="margin:10px 0 0;color:var(--deep);font-size:.95rem">${inc.question}</h3><div class="options" id="options"></div><div id="feedback" class="feedback"></div><div class="actions"><button class="btn soft" id="hintBtn">Pista</button></div><div id="hint" class="hint">La respuesta está en el manual azul y en la infografía.</div>`;
 $('learnBtn').onclick=()=>{$('learnCard').classList.toggle('show'); $('learnBtn').querySelector('span:last-child').textContent=$('learnCard').classList.contains('show')?'−':'+'}; $('hintBtn').onclick=()=>$('hint').classList.add('show'); const opts=$('options'), letters=['A','B','C','D']; inc.options.forEach((op,i)=>{let b=document.createElement('button'); b.className='opt'; b.innerHTML=`<span class="letter">${letters[i]}</span>${op}`; b.onclick=()=>answer(i,b); opts.appendChild(b);}); updateHud();}
-function answer(i,b){const inc=incidents[current], fb=$('feedback'); if(i===inc.correct){b.classList.add('right'); [...$('options').children].forEach(x=>x.disabled=true); if(wrong===0)firstTry++; earned.add(inc.badge); $('node-'+inc.node).classList.remove('active'); $('node-'+inc.node).classList.add('done'); fb.className='feedback show ok'; fb.innerHTML='<strong>Alarma apagada.</strong> '+inc.learn; log(`${inc.title} resuelta`); setTimeout(()=>{current++; render();},1550);}else{b.classList.add('wrong'); b.disabled=true; wrong++; energy=Math.max(0,energy-5); fb.className='feedback show err'; fb.textContent='Esa decisión no apaga la alarma. La energía del parque baja un 5%. Revisa el manual azul y vuelve a intentarlo.'; updateHud();}}
-function updateHud(){ $('statMission').textContent=`${Math.min(current,incidents.length)} / ${incidents.length}`; $('statEff').textContent=`${current===0?100:Math.round(firstTry/current*100)}%`; $('statEnergy').textContent=energy+'%'; $('statBadges').textContent=earned.size; $('progressFill').style.width=(current/incidents.length*100)+'%';}
+function answer(i,b){
+const inc=incidents[current], fb=$('feedback');
+answeredIncidents.add(current);
+[...$('options').children].forEach(x=>x.disabled=true);
+if(i===inc.correct){
+  b.classList.add('right');
+  solvedIncidents.add(current);
+  registerCategorySuccess(inc.category);
+  energy=Math.round((solvedIncidents.size/incidents.length)*100);
+  refreshNode(inc.node);
+  fb.className='feedback show ok';
+  fb.innerHTML='<strong>Alarma apagada.</strong> '+inc.learn;
+  log(`${inc.title} apagada`);
+}else{
+  b.classList.add('wrong');
+  refreshNode(inc.node);
+  fb.className='feedback show err';
+  fb.innerHTML='<strong>Respuesta registrada.</strong> Esa decisión no apaga la alarma. La alarma queda activa y ya no se puede volver a responder esta pregunta.';
+  log(`${inc.title} sigue activa`);
+}
+updateHud();
+setTimeout(()=>{
+  current=nextUnansweredIndex();
+  if(current===-1){current=incidents.length; finish();}
+  else render();
+},1850);
+}
+function registerCategorySuccess(category){
+ const cat=categoryState[category];
+ if(!cat) return;
+ cat.correct++;
+ if(cat.correct===cat.total){
+   earned.add(cat.badge);
+   log(`🏅 Insignia desbloqueada: ${cat.badge}`);
+ }
+}
+function resetCategories(){
+ Object.values(categoryState).forEach(cat=>cat.correct=0);
+ earned.clear();
+}
+function updateHud(){
+ const solved=solvedIncidents.size;
+ const active=incidents.length - solved;
+ $('statMission').textContent=active;
+ $('statEnergy').textContent=energy+'%';
+ $('statBadges').textContent=earned.size+'/'+Object.keys(categoryState).length;
+ $('progressFill').style.width=(solved/incidents.length*100)+'%';
+}
 function log(t){const list=$('logList'); if(list.querySelector('.empty'))list.innerHTML=''; const div=document.createElement('div'); div.className='log-entry'; div.textContent='✅ '+t; list.prepend(div);}
-function finish(){updateHud(); $('game').classList.add('hidden'); $('finale').classList.remove('hidden'); $('progressFill').style.width='100%'; const eff=Math.round(firstTry/incidents.length*100); $('finalText').innerHTML=`Habéis completado las ${incidents.length} alarmas. Energía final del parque: <strong>${energy}%</strong>. Eficiencia al primer intento: <strong>${eff}%</strong>.`; $('finalBadges').innerHTML=[...earned].map(x=>`<span class="award">${x}</span>`).join('');}
-$('startBtn').onclick=()=>{$('intro').classList.add('hidden'); $('game').classList.remove('hidden'); current=0; render();};
-$('demoBtn').onclick=()=>alert('En cada alarma abre el manual azul, mira la infografía y responde. Las respuestas están dentro de la explicación.');
-$('restartBtn').onclick=()=>{current=0;wrong=0;firstTry=0;energy=100;earned.clear();document.querySelectorAll('.node').forEach(n=>n.classList.remove('active','done'));$('logList').innerHTML='<p class="empty">Todavía no hay alarmas resueltas.</p>';$('finale').classList.add('hidden');$('intro').classList.remove('hidden');updateHud();}; updateHud();
+function finish(){
+updateHud(); $('game').classList.add('hidden'); $('finale').classList.remove('hidden'); $('progressFill').style.width=(solvedIncidents.size/incidents.length*100)+'%';
+const active=incidents.length-solvedIncidents.size;
+let result='';
+if(energy===100){result='Parque completamente recuperado.';}
+else if(energy>=80){result='Muy buen trabajo: el parque queda casi recuperado.';}
+else if(energy>=60){result='Parque parcialmente operativo: todavía quedan alarmas activas.';}
+else{result='El parque necesita una nueva intervención: demasiadas alarmas siguen activas.';}
+$('finalText').innerHTML=`Habéis respondido las ${incidents.length} alarmas. Energía recuperada: <strong>${energy}%</strong>. Alarmas activas restantes: <strong>${active}</strong>. ${result}`;
+$('finalBadges').innerHTML=Object.values(categoryState).map(cat=>{
+  const unlocked=earned.has(cat.badge);
+  return `<span class="award ${unlocked?'':'locked'}">${unlocked?cat.badge:'🔒 '+cat.name}</span>`;
+}).join('');}
+$('startBtn').onclick=()=>{$('intro').classList.add('hidden'); $('game').classList.remove('hidden'); solvedIncidents.clear(); answeredIncidents.clear(); resetCategories(); current=0; energy=0; activateAllAlarms(); render();};
+$('demoBtn').onclick=()=>alert('En cada alarma abre el manual azul, mira la infografía y responde. Solo hay un intento por pregunta.');
+$('restartBtn').onclick=()=>{current=0;energy=0;resetCategories();solvedIncidents.clear();answeredIncidents.clear();document.querySelectorAll('.node').forEach(n=>n.classList.remove('active','done'));$('logList').innerHTML='<p class="empty">Todavía no hay alarmas resueltas.</p>';$('finale').classList.add('hidden');$('intro').classList.remove('hidden');updateHud();}; updateHud();
 })();
 </script>
 </body>
