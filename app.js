@@ -116,8 +116,8 @@ function finish(){
   ?'<svg viewBox="0 0 72 72"><path d="M22 16h28v12a14 14 0 0 1-28 0z" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20h-8a8 8 0 0 0 8 14M50 20h8a8 8 0 0 1-8 14" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M36 42v10M26 58h20M30 52h12" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'
   :'<svg viewBox="0 0 72 72"><path d="M15 49q6 5 12 0t12 0t12 0t12 0" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M15 59q6 5 12 0t12 0t12 0t12 0" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M36 14v27M36 22l16 10M36 22L20 32" stroke="#0b73d1" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="36" cy="22" r="3" fill="#0b73d1"/></svg>';
  $('finalText').innerHTML=success
-  ?'Habéis apagado todas las alarmas y recuperado el <strong>100%</strong> de la energía del parque. ¡Misión cumplida!'
-  :`Habéis recuperado el <strong>${energy}%</strong> de la energía del parque. Podéis reiniciar la misión para intentar apagarlas todas.`;
+  ?'Has apagado todas las alarmas y recuperado el <strong>100%</strong> de la energía del parque. ¡Misión cumplida!'
+  :`Has recuperado el <strong>${energy}%</strong> de la energía del parque. Puedes reiniciar la misión para intentar apagarlas todas.`;
  $('finalBadges').innerHTML=incidents.map(i=>`<div class="final-badge ${earned.has(i.badge)?'earned':''}"><i>${makeIcon(i.icon)}</i><span>${i.badge}</span></div>`).join('');
  window.scrollTo({top:0,behavior:'smooth'});
 }
