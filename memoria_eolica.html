@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memoria · Eólica Marina</title>
+<style>
+  :root{
+    --blue-deep:#0B2540;
+    --blue:#1E4785;
+    --blue-light:#5BB8DC;
+    --ink:#16304A;
+    --muted:#7C93A8;
+    --border:#D6DEE5;
+    --soft:#F4F7FA;
+    --white:#FFFFFF;
+    --amber:#F2A93B;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--white);
+    color:var(--ink);
+    font-family:var(--sans);
+    padding:28px 16px 60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  /* ---------- HEADER ---------- */
+  .console{
+    width:100%;
+    max-width:920px;
+  }
+
+  .console-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:14px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:16px;
+    margin-bottom:22px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--blue-light);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+
+  h1{
+    margin:0;
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--blue-deep);
+  }
+
+  h1 span{ color:var(--blue-light); }
+
+  .readouts{
+    display:flex;
+    gap:22px;
+    font-family:var(--mono);
+  }
+
+  .readout{ text-align:right; }
+  .readout .label{
+    font-size:10px;
+    letter-spacing:.1em;
+    color:var(--muted);
+    text-transform:uppercase;
+    display:block;
+  }
+  .readout .value{
+    font-size:22px;
+    color:var(--blue-deep);
+    line-height:1.1;
+  }
+
+  /* ---------- GRID ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:10px;
+    width:100%;
+    max-width:920px;
+  }
+
+  @media (max-width:720px){
+    .grid{ grid-template-columns:repeat(3, 1fr); }
+  }
+
+  .card{
+    perspective:900px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .card-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .45s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+    cursor:pointer;
+  }
+
+  .card.flipped .card-inner{ transform:rotateY(180deg); }
+  .card.matched .card-inner{ cursor:default; }
+
+  .face{
+    position:absolute;
+    inset:0;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    backface-visibility:hidden;
+    padding:8px;
+    text-align:center;
+  }
+
+  .face-back{
+    background:var(--white);
+    border:1px solid var(--border);
+  }
+
+  .face-back .logo{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.16em;
+    color:#0B4C7A;
+  }
+
+  .logo-block{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .face-back .logo-mark{
+    width:64px;
+    height:22px;
+    margin-bottom:8px;
+    display:block;
+  }
+
+  .face-front{
+    background:var(--soft);
+    color:var(--ink);
+    transform:rotateY(180deg);
+    border:1px solid #C9D6E0;
+  }
+
+  .card.matched .face-front{
+    background:#EAF6EE;
+    border-color:#8FCB9F;
+  }
+
+  .face-front .icon{
+    width:34px;
+    height:34px;
+    color:var(--blue);
+    margin-bottom:6px;
+  }
+
+  .card.matched .face-front .icon{ color:#2F8F4E; }
+
+  .face-front .txt{
+    font-size:10.5px;
+    line-height:1.28;
+    color:var(--ink);
+  }
+
+  .face-front .tag{
+    font-family:var(--mono);
+    font-size:8.5px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:3px;
+  }
+
+  /* ---------- LOG / FEED ---------- */
+  .feed{
+    margin-top:26px;
+    width:100%;
+    max-width:920px;
+    border-top:1px solid var(--border);
+    padding-top:14px;
+    min-height:40px;
+  }
+  .feed-line{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--blue);
+    opacity:0;
+    animation:fadein .3s forwards;
+  }
+  @keyframes fadein{ to{ opacity:1; } }
+
+  /* ---------- WIN OVERLAY ---------- */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(11,37,64,0.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:10;
+  }
+  .overlay.show{ display:flex; }
+
+  .panel{
+    background:var(--white);
+    color:var(--ink);
+    border-radius:8px;
+    border:1px solid var(--border);
+    padding:32px 28px;
+    max-width:400px;
+    text-align:center;
+  }
+  .panel .eyebrow{ color:var(--blue); }
+  .panel h2{ margin:6px 0 10px; font-size:22px; color:var(--blue-deep); }
+  .panel p{ font-size:14px; color:var(--muted); margin:0 0 20px; line-height:1.5;}
+
+  .btn{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--blue);
+    color:white;
+    border:none;
+    padding:11px 22px;
+    border-radius:4px;
+    cursor:pointer;
+  }
+  .btn:hover{ background:var(--blue-deep); }
+
+  .restart-wrap{
+    width:100%;
+    max-width:920px;
+    display:flex;
+    justify-content:flex-end;
+    margin-top:16px;
+  }
+  .restart{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:transparent;
+    color:var(--blue);
+    border:1px solid var(--border);
+    padding:8px 14px;
+    border-radius:4px;
+    cursor:pointer;
+  }
+  .restart:hover{ border-color:var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="console">
+  <div class="console-top">
+    <div>
+      <p class="eyebrow">Misión MARES · Centro de control</p>
+      <h1>Memoria <span>Eólica Marina</span></h1>
+    </div>
+    <div class="readouts">
+      <div class="readout">
+        <span class="label">Movimientos</span>
+        <span class="value" id="moves">0</span>
+      </div>
+      <div class="readout">
+        <span class="label">Parejas</span>
+        <span class="value"><span id="matches">0</span>/9</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="feed" id="feed"></div>
+
+  <div class="restart-wrap">
+    <button class="restart" id="restart">Reiniciar</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <p class="eyebrow">Sistema estabilizado</p>
+    <h2>Todas las parejas encontradas</h2>
+    <p id="summary">Has resuelto las 9 curiosidades de la eólica marina.</p>
+    <button class="btn" id="playAgain">Jugar de nuevo</button>
+  </div>
+</div>
+
+<script>
+const ICONS = {
+  viento: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 8h13a2.5 2.5 0 1 0-2-4"/><path d="M2 13h17a2.5 2.5 0 1 1-2 4"/><path d="M2 18h9a2 2 0 1 0-1.6-3.2"/></svg>`,
+  palas: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 12C12 7 10 3 7 2c-1 3 1 7 5 10Z"/><path d="M12 12c4.5 1.5 8 1 9-2-2.5-2-6.5-1.5-9 2Z"/><path d="M12 12c-2 4-1.5 7.5 2 9.5 1.5-3-.5-7-2-9.5Z"/></svg>`,
+  gondola: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="14" height="6" rx="1.5"/><path d="M18 12h3"/><path d="M6 9V6.5"/><circle cx="9" cy="12" r="1"/></svg>`,
+  rotor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/></svg>`,
+  torre: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4l1 19H9L10 2Z"/><path d="M9.4 8h5.2"/><path d="M8.8 14h6.4"/></svg>`,
+  flotador: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v9"/><rect x="6" y="11" width="10" height="5" rx="1"/><path d="M2 20c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0"/></svg>`,
+  palanegra: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 12C12 7 10 3 7 2c-1 3 1 7 5 10Z" fill="currentColor" fill-opacity="0.85"/><path d="M12 12c4.5 1.5 8 1 9-2-2.5-2-6.5-1.5-9 2Z"/><path d="M12 12c-2 4-1.5 7.5 2 9.5 1.5-3-.5-7-2-9.5Z"/></svg>`,
+  mantenimiento: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2-2 2.6-2.6Z"/></svg>`,
+  vidautil: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>`
+};
+
+const ITEMS = [
+  { key:"viento", tag:"Viento en el mar", txt:"Más fuerte y constante que en tierra: no encuentra montañas, edificios ni árboles que lo frenen." },
+  { key:"palas", tag:"Palas", txt:"Giran despacio a simple vista, pero la punta puede alcanzar más de 300 km/h." },
+  { key:"gondola", tag:"Góndola", txt:"Es la \u201ccabeza\u201d del aerogenerador: gira sola para orientarse siempre de frente al viento." },
+  { key:"rotor", tag:"Rotor", txt:"Conecta las palas con la góndola y transforma el giro del viento en movimiento mecánico." },
+  { key:"torre", tag:"Torre", txt:"La más alta alcanza\n185 metros: como un edificio de 58 pisos." },
+  { key:"flotador", tag:"Plataforma", txt:"En el mar no hace falta clavar la turbina al fondo: flota y se ancla con cadenas al lecho marino." },
+  { key:"palanegra", tag:"Aves", txt:"Pintar una pala de negro reduce hasta un 70% las colisiones de aves al girar." },
+  { key:"mantenimiento", tag:"Mantenimiento", txt:"Los técnicos suben a la góndola en ascensores o helicóptero y, a veces por escaleras." },
+  { key:"vidautil", tag:"Vida útil", txt:"Suele diseñarse para funcionar unos 25-30 años antes de ser sustituido o reacondicionado." }
+];
+
+let deck = [];
+let flippedCards = [];
+let matchedCount = 0;
+let moveCount = 0;
+let lockBoard = false;
+
+const grid = document.getElementById("grid");
+const movesEl = document.getElementById("moves");
+const matchesEl = document.getElementById("matches");
+const feedEl = document.getElementById("feed");
+const overlay = document.getElementById("overlay");
+
+function shuffle(arr){
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function buildDeck(){
+  const pairs = [];
+  ITEMS.forEach(item => {
+    pairs.push({ key:item.key, type:"icon", tag:item.tag, txt:item.tag });
+    pairs.push({ key:item.key, type:"text", tag:item.tag, txt:item.txt });
+  });
+  return shuffle(pairs);
+}
+
+function logLine(text){
+  const line = document.createElement("div");
+  line.className = "feed-line";
+  line.textContent = text;
+  feedEl.prepend(line);
+  while(feedEl.children.length > 4){
+    feedEl.removeChild(feedEl.lastChild);
+  }
+}
+
+function render(){
+  grid.innerHTML = "";
+  deck.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.index = index;
+
+    const inner = document.createElement("div");
+    inner.className = "card-inner";
+
+    const back = document.createElement("div");
+    back.className = "face face-back";
+    back.innerHTML = `
+      <div class="logo-block">
+        <svg class="logo-mark" viewBox="-3 -3 106 46" fill="none" stroke-linecap="round" preserveAspectRatio="none">
+          <path d="M0,10 Q8.5,4 17,10 T34,10 T51,10 T68,10 T85,10 T100,10" stroke="#29ABE2" stroke-width="4.2"/>
+          <path d="M0,20 Q8.5,14 17,20 T34,20 T51,20 T68,20 T85,20 T100,20" stroke="#B7D98C" stroke-width="4.2"/>
+          <path d="M0,30 Q8.5,24 17,30 T34,30 T51,30 T68,30 T85,30 T100,30" stroke="#0B4C7A" stroke-width="4.2"/>
+        </svg>
+        <span class="logo">MARES</span>
+      </div>`;
+
+    const front = document.createElement("div");
+    front.className = "face face-front";
+
+    if(item.type === "icon"){
+      front.innerHTML = `<span class="icon">${ICONS[item.key]}</span><span class="txt">${item.tag}</span>`;
+    } else {
+      front.innerHTML = `<span class="tag">${item.tag}</span><span class="txt">${item.txt}</span>`;
+    }
+
+    inner.appendChild(back);
+    inner.appendChild(front);
+    card.appendChild(inner);
+    card.addEventListener("click", () => onCardClick(card, item));
+    grid.appendChild(card);
+  });
+}
+
+function onCardClick(card, item){
+  if(lockBoard) return;
+  if(card.classList.contains("flipped") || card.classList.contains("matched")) return;
+  if(flippedCards.length === 2) return;
+
+  card.classList.add("flipped");
+  flippedCards.push({ card, item });
+
+  if(flippedCards.length === 2){
+    moveCount++;
+    movesEl.textContent = moveCount;
+    checkMatch();
+  }
+}
+
+function checkMatch(){
+  const [a, b] = flippedCards;
+  if(a.item.key === b.item.key){
+    lockBoard = true;
+    setTimeout(() => {
+      a.card.classList.add("matched");
+      b.card.classList.add("matched");
+      matchedCount++;
+      matchesEl.textContent = matchedCount;
+      logLine(`✓ Pareja confirmada: ${a.item.tag}`);
+      flippedCards = [];
+      lockBoard = false;
+      if(matchedCount === ITEMS.length){
+        setTimeout(showWin, 500);
+      }
+    }, 400);
+  } else {
+    lockBoard = true;
+    setTimeout(() => {
+      a.card.classList.remove("flipped");
+      b.card.classList.remove("flipped");
+      flippedCards = [];
+      lockBoard = false;
+    }, 800);
+  }
+}
+
+function showWin(){
+  document.getElementById("summary").textContent =
+    `Has resuelto las 9 curiosidades de la eólica marina en ${moveCount} movimientos.`;
+  overlay.classList.add("show");
+}
+
+function startGame(){
+  deck = buildDeck();
+  flippedCards = [];
+  matchedCount = 0;
+  moveCount = 0;
+  lockBoard = false;
+  movesEl.textContent = 0;
+  matchesEl.textContent = 0;
+  feedEl.innerHTML = "";
+  overlay.classList.remove("show");
+  render();
+}
+
+document.getElementById("restart").addEventListener("click", startGame);
+document.getElementById("playAgain").addEventListener("click", startGame);
+
+startGame();
+</script>
+</body>
+</html>

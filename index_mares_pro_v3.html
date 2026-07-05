@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escape room · MARES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_mares_pro_v3.css" />
+</head>
+<body class="screen-start">
+
+<div class="ocean-bg" id="oceanBg" aria-hidden="true"></div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 72 72"><path d="M15 49q6 5 12 0t12 0t12 0t12 0"/><path d="M15 59q6 5 12 0t12 0t12 0t12 0"/><path d="M36 14v27"/><path d="M36 22l16 10"/><path d="M36 22L20 32"/><circle cx="36" cy="22" r="3"/></svg>
+      </div>
+      <div>
+        <h1>Centro de control MARES</h1>
+        <p>Parque de energías renovables marinas</p>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div class="hud-row-top">
+        <div class="status-chip"><span class="status-dot"></span> Sistema en línea</div>
+        <div class="timer-chip" id="timerChip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8.5"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>
+          <span id="timerValue">20:00</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>Alarmas activas</span><strong id="statAlarms">5</strong></div>
+        <div class="stat"><span>Energía recuperada</span><strong id="statEnergy">0%</strong></div>
+        <div class="stat"><span>Insignias</span><strong id="statBadges">0/5</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="start-screen" id="startScreen">
+    <div class="start-grid">
+      <div class="panel start-info">
+        <span class="kicker"><svg class="kicker-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>Incidencia en curso</span>
+        <h2>Una tormenta ha dejado el parque a oscuras</h2>
+        <p>Estáis al mando del centro de control y tenéis 20 minutos para actuar. Resolved los retos de cada zona, desactivad las alarmas y recuperad la energía del parque MARES antes de que se acabe el tiempo.</p>
+        <div class="rule-list">
+          <h3>¿Cómo se juega?</h3>
+          <div class="step-grid">
+            <div class="step-card">
+              <span class="step-num">01</span>
+              <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6l5-2 6 2 5-2v13l-5 2-6-2-5 2z"/><path d="M8 4v13M14 6v13"/></svg></span>
+              <span class="step-label">Explora<br>el mapa</span>
+            </div>
+            <div class="step-card">
+              <span class="step-num">02</span>
+              <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v11H9l-4 4v-4H4z"/><path d="M12 9.6a1.6 1.6 0 1 1 1.9 1.58c-.75.14-1.3.72-1.3 1.42v.2"/><circle cx="12" cy="15.4" r=".35" fill="currentColor" stroke="none"/></svg></span>
+              <span class="step-label">Responde<br>al reto</span>
+            </div>
+            <div class="step-card">
+              <span class="step-num">03</span>
+              <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M13 6.5l-4.5 6.3h3.2l-1 5 4.6-6.3h-3.3z" fill="currentColor" stroke="none"/></svg></span>
+              <span class="step-label">Desactiva<br>la alarma</span>
+            </div>
+            <div class="step-card">
+              <span class="step-num">04</span>
+              <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.4"/><path d="M12 8.3l1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z" fill="currentColor" stroke="none"/></svg></span>
+              <span class="step-label">Recibe tu<br>carta</span>
+            </div>
+          </div>
+        </div>
+        <div class="reward-note">
+          <span class="reward-note-icon" aria-hidden="true">
+            <span class="rn-main"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.4 7.1.6-5.4 4.7 1.7 6.9L12 16.9 5.7 20.6l1.7-6.9L2 9l7.1-.6z"/></svg></span>
+            <span class="rn-badge"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.4"/><path d="M12 8.3l1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z"/></svg></span>
+          </span>
+          <div class="reward-note-text">
+            <span class="reward-note-title">Recompensa de la misión</span>
+            <span>Por cada alarma resuelta conseguirás una carta para construir tu parque marino.</span>
+          </div>
+        </div>
+        <button class="primary" id="startBtn" type="button"><span>Entrar al centro de control</span><svg class="btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="panel map-card start-preview">
+        <img id="mapPreviewSlot" class="map-preview" src="tormenta.png" alt="Vista del parque marino MARES: aerogeneradores flotantes, plataforma solar flotante y dispositivos mareomotrices submarinos"/>
+      </div>
+    </div>
+  </section>
+
+  <div class="hidden" id="gameScreen">
+  <main class="layout" id="gameLayout">
+    <div class="top-row">
+      <section class="question-col" id="questionCol">
+        <div class="panel empty-state">
+          <h2>Selecciona un sistema del mapa</h2>
+          <p>Elige una alarma activa para abrir su ficha técnica con una pregunta y tres posibles respuestas.</p>
+        </div>
+      </section>
+
+      <section class="map-card panel">
+      <div class="map-head">
+        <div>
+          <h2>Mapa del parque</h2>
+        </div>
+        <div class="legend">
+          <span><i class="dot alarm-dot"></i> Alarma activa</span>
+          <span><i class="dot ok-dot"></i> Sistema recuperado</span>
+        </div>
+      </div>
+
+      <div class="map-frame">
+      <svg id="parkMap" viewBox="0 50 1120 710" role="img" aria-label="Mapa operativo del parque marino MARES">
+        <defs>
+          <pattern id="water" width="80" height="80" patternUnits="userSpaceOnUse">
+            <rect width="80" height="80" fill="#0c2536"/>
+            <path d="M12 25q10 7 20 0t20 0" class="water-line"/>
+            <path d="M34 58q8 5 16 0t16 0" class="water-line soft"/>
+          </pattern>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#00121e" flood-opacity="0.35"/>
+          </filter>
+        </defs>
+
+        <rect x="0" y="0" width="1120" height="760" rx="24" fill="url(#water)"/>
+
+        <g id="zone-solar" class="zone" data-index="1" transform="translate(183 90)">
+          <rect width="290" height="290" class="zone-hit"/>
+          <g class="asset-grid solar-grid" transform="translate(42 28)"></g>
+          <text class="zone-title" x="145" y="270">PLATAFORMAS SOLARES FLOTANTES</text>
+        </g>
+
+        <g id="zone-wind" class="zone" data-index="2" transform="translate(648 90)">
+          <rect width="290" height="290" class="zone-hit"/>
+          <g class="asset-grid wind-grid" transform="translate(42 28)"></g>
+          <text class="zone-title" x="145" y="270">AEROGENERADORES FLOTANTES</text>
+        </g>
+
+        <g id="zone-sub" class="zone" data-index="3" transform="translate(413 325)">
+          <rect width="230" height="160" class="zone-hit"/>
+          <g class="substation" transform="translate(38 34)"></g>
+          <g class="substation" transform="translate(132 34)"></g>
+          <text class="zone-title" x="115" y="135">SUBESTACIONES ELÉCTRICAS</text>
+        </g>
+
+        <g id="zone-tide" class="zone" data-index="0" transform="translate(183 430)">
+          <rect width="290" height="300" class="zone-hit"/>
+          <g class="asset-grid tide-grid" transform="translate(45 22)"></g>
+          <text class="zone-title" x="145" y="274">DISPOSITIVOS MAREOMOTRICES</text>
+        </g>
+
+        <g id="zone-bio" class="zone" data-index="4" transform="translate(648 430)">
+          <rect width="290" height="300" class="zone-hit"/>
+          <g class="asset-grid bio-grid" transform="translate(42 22)"></g>
+          <text class="zone-title" x="145" y="274">BIODIVERSIDAD MARINA</text>
+        </g>
+      </svg>
+      </div>
+      </section>
+    </div>
+
+  </main>
+
+  <section class="final panel hidden" id="finale">
+    <div class="final-scroll">
+
+      <div class="final-top">
+        <div class="final-left">
+          <div class="mission-badge" id="missionBadge"></div>
+          <h2 id="finalHeadline">Informe final del parque</h2>
+          <p id="finalText"></p>
+
+          <div class="energy-card">
+            <span class="energy-card-label">Energía restablecida</span>
+            <div class="energy-card-row">
+              <div class="energy-ring-wrap">
+                <svg class="energy-ring" viewBox="0 0 100 100" aria-hidden="true">
+                  <circle class="energy-ring-track" cx="50" cy="50" r="42"/>
+                  <circle class="energy-ring-fill" id="energyRingFill" cx="50" cy="50" r="42"/>
+                </svg>
+                <svg class="energy-ring-bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+              </div>
+              <div class="energy-card-value">
+                <strong id="finalEnergyValue">0%</strong>
+                <span>Producción del parque</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="primary final-restart" id="restartBtn" type="button"><span>Reiniciar misión</span></button>
+        </div>
+
+        <div class="final-right">
+          <div class="final-photo-frame">
+            <img class="final-photo-img" src="parque_vista.png" alt="Vista del parque marino MARES totalmente operativo: aerogeneradores flotantes, plataforma solar flotante y dispositivos mareomotrices submarinos"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="collection">
+        <div class="collection-head">
+          <div class="collection-head-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.4"/><rect x="14" y="3" width="7" height="7" rx="1.4"/><rect x="3" y="14" width="7" height="7" rx="1.4"/><rect x="14" y="14" width="7" height="7" rx="1.4"/></svg>
+          </div>
+          <div>
+            <h3>Tu colección MARES</h3>
+            <p>Estas son las cartas de tecnología que has conseguido.</p>
+          </div>
+        </div>
+        <div class="collection-body">
+          <div class="collection-grid" id="collectionGrid"></div>
+          <div class="collection-side">
+            <div class="collection-side-icon" aria-hidden="true">★</div>
+            <span class="collection-side-kicker">Colección completa</span>
+            <strong id="collectionCount">0/5</strong>
+            <span class="collection-side-caption">cartas conseguidas</span>
+            <p id="collectionNote"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="modal hidden" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-icon" id="resultIcon"></div>
+        <div>
+          <span>Resultado</span>
+          <h4 id="resultTitle">Resultado</h4>
+        </div>
+        <button class="modal-close" id="resultClose" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <p id="resultMsg"></p>
+        <button class="primary modal-continue" id="resultContinue" type="button"><span>Continuar</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="modal hidden memory-modal" id="memoryModal" role="dialog" aria-modal="true" aria-labelledby="memoryModalTitle">
+    <div class="modal-card memory-modal-card">
+      <div class="modal-head">
+        <div class="modal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 8h13a2.5 2.5 0 1 0-2-4"/><path d="M2 13h17a2.5 2.5 0 1 1-2 4"/></svg></div>
+        <div>
+          <span>Actividad</span>
+          <h4 id="memoryModalTitle">Memoria · Eólica marina</h4>
+        </div>
+        <button class="modal-close" id="memoryClose" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body memory-modal-body">
+        <iframe id="memoryFrame" class="memory-frame" title="Juego de memoria de curiosidades de la eólica marina" src="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="modal hidden memory-modal puzzle-modal" id="puzzleModal" role="dialog" aria-modal="true" aria-labelledby="puzzleModalTitle">
+    <div class="modal-card memory-modal-card puzzle-modal-card">
+      <div class="modal-head">
+        <div class="modal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div>
+        <div>
+          <span>Actividad</span>
+          <h4 id="puzzleModalTitle">Puzle · Parque marino</h4>
+        </div>
+        <button class="modal-close" id="puzzleClose" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body memory-modal-body">
+        <iframe id="puzzleFrame" class="memory-frame puzzle-frame" title="Puzle del parque marino híbrido" src="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="app_mares_pro_v3.js"></script>
+</body>
+</html>
